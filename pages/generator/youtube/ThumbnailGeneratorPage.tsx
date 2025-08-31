@@ -8,6 +8,7 @@ import { ai } from '../../../lib/gemini';
 import { useToast } from '../../../components/ui/Toast';
 import { Modality, Type } from '@google/genai';
 import { Button } from '../../../components/ui/Button';
+import ListForSaleModal, { ListingDetails } from '../../../components/marketplace/ListForSaleModal';
 
 export interface ThumbnailStyle {
   titleColor: string;
@@ -105,6 +106,8 @@ const ThumbnailGeneratorPage = () => {
         subtitleColor: '#FFD166',
         subtitleFontSize: 50,
     });
+    const [isListModalOpen, setIsListModalOpen] = useState(false);
+    const [designPreviewUrl, setDesignPreviewUrl] = useState('');
 
     const handleGenerateBackground = async () => {
         if (!aiPrompt) {
@@ -259,6 +262,22 @@ const ThumbnailGeneratorPage = () => {
         setAssetMetadata(null);
     }
 
+    const handleOpenListModal = () => {
+        if (stageRef.current) {
+            const uri = stageRef.current.toDataURL({ mimeType: 'image/png', quality: 1 });
+            setDesignPreviewUrl(uri);
+            setIsListModalOpen(true);
+        } else {
+            toast({ title: "Error", description: "Could not capture design preview.", variant: "destructive" });
+        }
+    };
+
+    const handleConfirmListing = (details: ListingDetails) => {
+        console.log("Listing details:", details);
+        toast({ title: "Success!", description: "Your design has been listed on the Marketplace." });
+        setIsListModalOpen(false);
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -268,7 +287,10 @@ const ThumbnailGeneratorPage = () => {
         >
              <div className="flex items-center justify-between">
                 <h1 className="text-lg font-semibold md:text-2xl">YouTube Thumbnail Generator</h1>
-                <Button onClick={handleExport}>Export as PNG</Button>
+                <div className="flex items-center gap-2">
+                    <Button variant="outline" onClick={handleOpenListModal}>List on Marketplace</Button>
+                    <Button onClick={handleExport}>Export as PNG</Button>
+                </div>
             </div>
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4">
                 <div className="lg:col-span-3 bg-muted/40 p-4 rounded-lg flex flex-col gap-4 overflow-y-auto">
@@ -290,7 +312,6 @@ const ThumbnailGeneratorPage = () => {
                         onSelectTemplate={handleSelectTemplate}
                         assetMetadata={assetMetadata}
                         isAnalyzing={isAnalyzing}
-                        // Fix: Pass style object to allow ThumbnailInputForm to correctly update it.
                         style={style}
                         setStyle={setStyle}
                     />
@@ -310,6 +331,12 @@ const ThumbnailGeneratorPage = () => {
                     <StyleControls style={style} setStyle={setStyle} />
                 </div>
             </div>
+            <ListForSaleModal
+                isOpen={isListModalOpen}
+                onClose={() => setIsListModalOpen(false)}
+                onConfirm={handleConfirmListing}
+                designPreviewUrl={designPreviewUrl}
+             />
         </motion.div>
     );
 };

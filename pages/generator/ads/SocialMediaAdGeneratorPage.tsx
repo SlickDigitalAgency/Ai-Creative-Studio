@@ -6,6 +6,8 @@ import AdStyleControls from '../../../components/generator/ads/AdStyleControls';
 import { AdCampaignInputs, AdStyle, SocialPlatformFormat } from '../../../types/ads';
 import { ai } from '../../../lib/gemini';
 import { useToast } from '../../../components/ui/Toast';
+import { Button } from '../../../components/ui/Button';
+import ListForSaleModal, { ListingDetails } from '../../../components/marketplace/ListForSaleModal';
 
 const availableFormats: SocialPlatformFormat[] = [
     { id: 'ig-story', name: 'Story', platform: 'Instagram', width: 1080, height: 1920, aspectRatio: '9:16' },
@@ -29,6 +31,8 @@ const SocialMediaAdGeneratorPage = () => {
     const [selectedFormats, setSelectedFormats] = useState<string[]>(['ig-story', 'ig-post']);
     const [generatedBackgrounds, setGeneratedBackgrounds] = useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = useState(false);
+    const [isListModalOpen, setIsListModalOpen] = useState(false);
+    const [designPreviewUrl, setDesignPreviewUrl] = useState('');
 
     const handleGenerateAds = async () => {
         if (selectedFormats.length === 0) {
@@ -79,6 +83,25 @@ const SocialMediaAdGeneratorPage = () => {
         }
     };
 
+    const handleOpenListModal = () => {
+        // Conceptual: In a real app, you'd let the user select which ad to list.
+        // For now, we'll use the first available generated background as a preview.
+        const firstPreviewUrl = Object.values(generatedBackgrounds)[0];
+        if (firstPreviewUrl) {
+            setDesignPreviewUrl(firstPreviewUrl);
+            setIsListModalOpen(true);
+        } else {
+            toast({ title: "Error", description: "Please generate some ads first to list one.", variant: "destructive" });
+        }
+    };
+
+    const handleConfirmListing = (details: ListingDetails) => {
+        console.log("Listing details:", details);
+        toast({ title: "Success!", description: "Your design has been listed on the Marketplace." });
+        setIsListModalOpen(false);
+    };
+
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -86,8 +109,9 @@ const SocialMediaAdGeneratorPage = () => {
             transition={{ duration: 0.5 }}
             className="flex-1 flex flex-col"
         >
-            <div className="flex items-center">
+            <div className="flex items-center justify-between">
                 <h1 className="text-lg font-semibold md:text-2xl">Social Media Ad Generator</h1>
+                <Button variant="outline" onClick={handleOpenListModal}>List on Marketplace</Button>
             </div>
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4">
                 <div className="lg:col-span-3 bg-muted/40 p-4 rounded-lg flex flex-col gap-4 overflow-y-auto">
@@ -116,6 +140,12 @@ const SocialMediaAdGeneratorPage = () => {
                     </div>
                 </div>
             </div>
+            <ListForSaleModal
+                isOpen={isListModalOpen}
+                onClose={() => setIsListModalOpen(false)}
+                onConfirm={handleConfirmListing}
+                designPreviewUrl={designPreviewUrl}
+             />
         </motion.div>
     );
 };

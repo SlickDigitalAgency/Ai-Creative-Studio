@@ -10,6 +10,12 @@ import { cn } from '../../lib/utils';
 import ImageIcon from '../icons/ImageIcon';
 import MegaphoneIcon from '../icons/MegaphoneIcon';
 import PenToolIcon from '../icons/PenToolIcon';
+import EditIcon from '../icons/EditIcon';
+import IdCardIcon from '../icons/IdCardIcon';
+import FileTextIcon from '../icons/FileTextIcon';
+import GalleryHorizontalEndIcon from '../icons/GalleryHorizontalEndIcon';
+import StoreIcon from '../icons/StoreIcon';
+import BriefcaseIcon from '../icons/BriefcaseIcon';
 
 const Sidebar = () => {
     const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
@@ -32,6 +38,14 @@ const Sidebar = () => {
                             <LayoutDashboardIcon className="h-4 w-4" />
                             Dashboard
                         </NavLink>
+                        <NavLink to="/marketplace" className={navLinkClasses}>
+                            <StoreIcon className="h-4 w-4" />
+                            Marketplace
+                        </NavLink>
+                        <NavLink to="/talent-hub" className={navLinkClasses}>
+                            <BriefcaseIcon className="h-4 w-4" />
+                            Talent Hub
+                        </NavLink>
                          <NavLink to="/generator/youtube-thumbnail" className={navLinkClasses}>
                             <ImageIcon className="h-4 w-4" />
                             Thumbnail Generator
@@ -43,6 +57,22 @@ const Sidebar = () => {
                         <NavLink to="/generator/logo" className={navLinkClasses}>
                             <PenToolIcon className="h-4 w-4" />
                             Logo Generator
+                        </NavLink>
+                        <NavLink to="/generator/business-card" className={navLinkClasses}>
+                            <IdCardIcon className="h-4 w-4" />
+                            Business Cards
+                        </NavLink>
+                         <NavLink to="/generator/flyer" className={navLinkClasses}>
+                            <FileTextIcon className="h-4 w-4" />
+                            Flyer Generator
+                        </NavLink>
+                        <NavLink to="/generator/poster" className={navLinkClasses}>
+                            <GalleryHorizontalEndIcon className="h-4 w-4" />
+                            Poster Generator
+                        </NavLink>
+                        <NavLink to="/editor/advanced" className={navLinkClasses}>
+                            <EditIcon className="h-4 w-4" />
+                            Advanced Editor
                         </NavLink>
                     </nav>
                 </div>

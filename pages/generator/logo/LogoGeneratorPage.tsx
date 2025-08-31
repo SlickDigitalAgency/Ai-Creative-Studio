@@ -6,6 +6,8 @@ import { Type } from '@google/genai';
 import { LogoGenerationInputs, GeneratedLogo } from '../../../types/logo';
 import LogoInputForm from '../../../components/generator/logo/LogoInputForm';
 import LogoPreviewGrid from '../../../components/generator/logo/LogoPreviewGrid';
+import { Button } from '../../../components/ui/Button';
+import ListForSaleModal, { ListingDetails } from '../../../components/marketplace/ListForSaleModal';
 
 const LogoGeneratorPage = () => {
     const { toast } = useToast();
@@ -17,6 +19,8 @@ const LogoGeneratorPage = () => {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [logos, setLogos] = useState<GeneratedLogo[]>([]);
+    const [isListModalOpen, setIsListModalOpen] = useState(false);
+    const [designPreviewUrl, setDesignPreviewUrl] = useState('');
 
     const handleGenerateLogos = async () => {
         setIsLoading(true);
@@ -64,6 +68,25 @@ The output must be a valid JSON array where each object has a single key "svg" c
         }
     };
 
+    const handleOpenListModal = () => {
+        // Conceptual: In a real app, you'd let the user select which logo to list.
+        // For now, we'll use the first generated logo as a preview.
+        if (logos.length > 0) {
+            const svgPreview = logos[0].svg;
+            const dataUrl = `data:image/svg+xml;base64,${btoa(svgPreview)}`;
+            setDesignPreviewUrl(dataUrl);
+            setIsListModalOpen(true);
+        } else {
+            toast({ title: "Error", description: "Please generate some logos first to list one.", variant: "destructive" });
+        }
+    };
+
+    const handleConfirmListing = (details: ListingDetails) => {
+        console.log("Listing details:", details);
+        toast({ title: "Success!", description: "Your design has been listed on the Marketplace." });
+        setIsListModalOpen(false);
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -71,8 +94,9 @@ The output must be a valid JSON array where each object has a single key "svg" c
             transition={{ duration: 0.5 }}
             className="flex-1 flex flex-col"
         >
-            <div className="flex items-center">
+            <div className="flex items-center justify-between">
                 <h1 className="text-lg font-semibold md:text-2xl">AI Logo Generator</h1>
+                <Button variant="outline" onClick={handleOpenListModal}>List on Marketplace</Button>
             </div>
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4">
                 <div className="lg:col-span-3 bg-muted/40 p-4 rounded-lg flex flex-col gap-4 overflow-y-auto">
@@ -87,6 +111,12 @@ The output must be a valid JSON array where each object has a single key "svg" c
                     <LogoPreviewGrid logos={logos} isLoading={isLoading} />
                 </div>
             </div>
+            <ListForSaleModal
+                isOpen={isListModalOpen}
+                onClose={() => setIsListModalOpen(false)}
+                onConfirm={handleConfirmListing}
+                designPreviewUrl={designPreviewUrl}
+             />
         </motion.div>
     );
 };

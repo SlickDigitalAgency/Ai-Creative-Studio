@@ -12,6 +12,12 @@ import { Toaster } from './components/ui/Toast';
 import ThumbnailGeneratorPage from './pages/generator/youtube/ThumbnailGeneratorPage';
 import SocialMediaAdGeneratorPage from './pages/generator/ads/SocialMediaAdGeneratorPage';
 import LogoGeneratorPage from './pages/generator/logo/LogoGeneratorPage';
+import AdvancedEditorPage from './pages/editor/AdvancedEditorPage';
+import BusinessMaterialsGeneratorPage from './pages/generator/business/BusinessMaterialsGeneratorPage';
+import FlyerGeneratorPage from './pages/generator/flyer/FlyerGeneratorPage';
+import PosterGeneratorPage from './pages/generator/poster/PosterGeneratorPage';
+import MarketplacePage from './pages/marketplace/MarketplacePage';
+import TalentPage from './pages/talent/TalentPage';
 
 function App() {
   // Initialize auth check on app load
@@ -61,6 +67,66 @@ function App() {
             <ProtectedRoute>
               <MainLayout>
                 <LogoGeneratorPage />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/generator/business-card"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <BusinessMaterialsGeneratorPage />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/generator/flyer"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <FlyerGeneratorPage />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/generator/poster"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <PosterGeneratorPage />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/editor/advanced"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <AdvancedEditorPage />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/marketplace"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <MarketplacePage />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/talent-hub"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <TalentPage />
               </MainLayout>
             </ProtectedRoute>
           }
