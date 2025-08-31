@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Creative Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              border: "hsl(217.2 32.6% 17.5%)",
+              input: "hsl(217.2 32.6% 17.5%)",
+              ring: "hsl(262 83% 58%)",
+              background: "hsl(222.2 84% 4.9%)",
+              foreground: "hsl(210 40% 98%)",
+              primary: {
+                DEFAULT: "#6C5CE7",
+                foreground: "hsl(210 40% 98%)",
+              },
+              secondary: {
+                DEFAULT: "hsl(217.2 32.6% 17.5%)",
+                foreground: "hsl(210 40% 98%)",
+              },
+              destructive: {
+                DEFAULT: "hsl(0 62.8% 30.6%)",
+                foreground: "hsl(210 40% 98%)",
+              },
+              muted: {
+                DEFAULT: "hsl(217.2 32.6% 17.5%)",
+                foreground: "hsl(215 20.2% 65.1%)",
+              },
+              accent: {
+                DEFAULT: "#FFD166",
+                foreground: "hsl(222.2 84% 4.9%)",
+              },
+              card: {
+                DEFAULT: "hsl(222.2 84% 4.9%)",
+                foreground: "hsl(210 40% 98%)",
+              },
+              popover: {
+                DEFAULT: "hsl(222.2 84% 4.9%)",
+                foreground: "hsl(210 40% 98%)",
+              },
+            },
+            borderRadius: {
+              lg: "0.5rem",
+              md: "calc(0.5rem - 2px)",
+              sm: "calc(0.5rem - 4px)",
+            },
+            fontFamily: {
+              'poppins': ['Poppins', 'sans-serif'],
+              'montserrat': ['Montserrat', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.8.2",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.2.1/",
+    "@hookform/resolvers/": "https://aistudiocdn.com/@hookform/resolvers@^5.2.1/",
+    "zustand": "https://aistudiocdn.com/zustand@^5.0.8",
+    "clsx": "https://aistudiocdn.com/clsx@^2.1.1",
+    "@radix-ui/react-label": "https://aistudiocdn.com/@radix-ui/react-label@^2.1.7",
+    "tailwind-merge": "https://aistudiocdn.com/tailwind-merge@^3.3.1",
+    "zod": "https://aistudiocdn.com/zod@^4.1.5",
+    "@radix-ui/react-slot": "https://aistudiocdn.com/@radix-ui/react-slot@^1.2.3",
+    "react-hook-form": "https://aistudiocdn.com/react-hook-form@^7.62.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.12",
+    "@radix-ui/react-separator": "https://aistudiocdn.com/@radix-ui/react-separator@^1.1.7",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.16.0",
+    "konva": "https://aistudiocdn.com/konva@^9.3.13",
+    "react-konva": "https://aistudiocdn.com/react-konva@^18.2.1",
+    "use-image": "https://aistudiocdn.com/use-image@^1.1.1"
+  }
+}
+</script>
+</head>
+  <body class="bg-background text-foreground">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
